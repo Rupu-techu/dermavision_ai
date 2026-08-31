@@ -126,6 +126,4 @@ dermavision_ai/
 
 ---
 
-## 🌐 Live Application Dashboard
 
-When the app is running (`python app.py`), visit **[http://127.0.0.1:5000](http://127.0.0.1:5000)** to interact with the input form, click quick clinical presets, and view animated risk gauges and probability breakdowns.
