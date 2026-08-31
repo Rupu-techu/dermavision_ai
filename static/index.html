@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DermaVision AI — Module 1 Clinical Dashboard & Model Integration</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Header Navigation -->
+        <header class="app-header">
+            <div class="brand-container">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-microscope"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>DermaVision AI <span class="badge">Module 1</span></h1>
+                    <p class="subtitle">ANN/MLP Skin Lesion Diagnostic & Clinical Health Analytics</p>
+                </div>
+            </div>
+            <div class="header-status">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span id="model-status-text">PyTorch ANN Model Active (78 Features)</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-layout">
+            <!-- Left Side: User Input Form & Clinical Parameters -->
+            <section class="form-section card-glass">
+                <div class="section-title-bar">
+                    <h2><i class="fa-solid fa-clipboard-user"></i> Patient & Lesion Clinical Intake</h2>
+                    <span class="info-tag">78-Feature Neural Input</span>
+                </div>
+
+                <!-- Quick Fill Presets -->
+                <div class="preset-container">
+                    <span class="preset-label"><i class="fa-solid fa-bolt"></i> Quick Presets:</span>
+                    <div class="preset-buttons">
+                        <button type="button" class="btn-preset" onclick="loadPreset('melanoma_risk')">
+                            <i class="fa-solid fa-triangle-exclamation text-danger"></i> High-Risk Melanoma
+                        </button>
+                        <button type="button" class="btn-preset" onclick="loadPreset('bcc_malignant')">
+                            <i class="fa-solid fa-virus-covid text-warning"></i> Basal Cell Carcinoma
+                        </button>
+                        <button type="button" class="btn-preset" onclick="loadPreset('benign_nevus')">
+                            <i class="fa-solid fa-shield-halved text-success"></i> Benign Mole (Nevus)
+                        </button>
+                        <button type="button" class="btn-preset" onclick="loadPreset('actinic_keratosis')">
+                            <i class="fa-solid fa-sun text-info"></i> Actinic Keratosis
+                        </button>
+                    </div>
+                </div>
+
+                <form id="dermavision-form" onsubmit="handlePrediction(event)">
+                    <!-- Tab Navigation -->
+                    <div class="form-tabs">
+                        <button type="button" class="tab-btn active" onclick="switchTab('tab-demographics')">
+                            <i class="fa-solid fa-user-doctor"></i> Demographics
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchTab('tab-lesion')">
+                            <i class="fa-solid fa-ruler-combined"></i> Lesion Metrics
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchTab('tab-symptoms')">
+                            <i class="fa-solid fa-notes-medical"></i> Symptoms & History
+                        </button>
+                    </div>
+
+                    <!-- Tab 1: Demographics -->
+                    <div id="tab-demographics" class="tab-content active">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="age"><i class="fa-solid fa-cake-candles"></i> Patient Age (Years)</label>
+                                <input type="number" id="age" name="age" min="1" max="110" value="55" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="gender"><i class="fa-solid fa-venus-mars"></i> Biological Gender</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="fitspatrick"><i class="fa-solid fa-sun-plant-wilt"></i> Fitzpatrick Skin Type (Scale I - VI)</label>
+                                <select id="fitspatrick" name="fitspatrick" required>
+                                    <option value="1">Type I — Very Pale, Always Burns</option>
+                                    <option value="2" selected>Type II — Fair Skin, Burns Easily</option>
+                                    <option value="3">Type III — Medium Fair, Burns Mildly</option>
+                                    <option value="4">Type IV — Olive Skin, Rarely Burns</option>
+                                    <option value="5">Type V — Brown Skin, Very Rarely Burns</option>
+                                    <option value="6">Type VI — Dark Brown / Black Skin</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="background_father"><i class="fa-solid fa-dna"></i> Ancestry Background (Father)</label>
+                                <select id="background_father" name="background_father">
+                                    <option value="GERMANY">Germany</option>
+                                    <option value="ITALY">Italy</option>
+                                    <option value="BRASIL">Brazil</option>
+                                    <option value="POMERANIA">Pomerania</option>
+                                    <option value="PORTUGAL">Portugal</option>
+                                    <option value="SPAIN">Spain</option>
+                                    <option value="AUSTRIA">Austria</option>
+                                    <option value="CZECH">Czech Republic</option>
+                                    <option value="ISRAEL">Israel</option>
+                                    <option value="NETHERLANDS">Netherlands</option>
+                                    <option value="POLAND">Poland</option>
+                                    <option value="UNK" selected>Unknown / Unspecified</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="background_mother"><i class="fa-solid fa-dna"></i> Ancestry Background (Mother)</label>
+                                <select id="background_mother" name="background_mother">
+                                    <option value="GERMANY">Germany</option>
+                                    <option value="ITALY">Italy</option>
+                                    <option value="BRAZIL">Brazil</option>
+                                    <option value="POMERANIA">Pomerania</option>
+                                    <option value="PORTUGAL">Portugal</option>
+                                    <option value="SPAIN">Spain</option>
+                                    <option value="FRANCE">France</option>
+                                    <option value="NETHERLANDS">Netherlands</option>
+                                    <option value="NORWAY">Norway</option>
+                                    <option value="POLAND">Poland</option>
+                                    <option value="UNK" selected>Unknown / Unspecified</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Lesion Metrics -->
+                    <div id="tab-lesion" class="tab-content">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="diameter_1"><i class="fa-solid fa-ruler-horizontal"></i> Primary Diameter 1 (mm)</label>
+                                <input type="number" id="diameter_1" name="diameter_1" step="0.1" value="10.0" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="diameter_2"><i class="fa-solid fa-ruler-vertical"></i> Secondary Diameter 2 (mm)</label>
+                                <input type="number" id="diameter_2" name="diameter_2" step="0.1" value="8.0" required>
+                            </div>
+
+                            <div class="input-group span-2">
+                                <label for="region"><i class="fa-solid fa-child-reaching"></i> Body Region Location</label>
+                                <select id="region" name="region" required>
+                                    <option value="FACE" selected>Face</option>
+                                    <option value="NOSE">Nose</option>
+                                    <option value="LIP">Lip</option>
+                                    <option value="EAR">Ear</option>
+                                    <option value="NECK">Neck</option>
+                                    <option value="SCALP">Scalp</option>
+                                    <option value="CHEST">Chest</option>
+                                    <option value="ABDOMEN">Abdomen</option>
+                                    <option value="BACK">Back</option>
+                                    <option value="ARM">Arm</option>
+                                    <option value="FOREARM">Forearm</option>
+                                    <option value="HAND">Hand</option>
+                                    <option value="THIGH">Thigh</option>
+                                    <option value="FOOT">Foot</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Symptoms & Clinical History -->
+                    <div id="tab-symptoms" class="tab-content">
+                        <div class="checkbox-grid">
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="itch" name="itch">
+                                <div class="checkbox-box"><i class="fa-solid fa-hand-dots"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Itching Sensation</strong>
+                                    <span>Lesion itches or causes discomfort</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="grew" name="grew">
+                                <div class="checkbox-box"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Recent Growth</strong>
+                                    <span>Lesion expanded in size recently</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="hurt" name="hurt">
+                                <div class="checkbox-box"><i class="fa-solid fa-burst"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Pain / Tenderness</strong>
+                                    <span>Lesion hurts or feels sensitive</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="changed" name="changed">
+                                <div class="checkbox-box"><i class="fa-solid fa-rotate"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Color / Shape Change</strong>
+                                    <span>Altered morphology or pigment</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="bleed" name="bleed">
+                                <div class="checkbox-box"><i class="fa-solid fa-droplet"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Bleeding / Oozing</strong>
+                                    <span>Lesion bleeds easily or crusts</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="elevation" name="elevation">
+                                <div class="checkbox-box"><i class="fa-solid fa-mountain"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Elevated / Raised</strong>
+                                    <span>Raised surface above skin plane</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="biopsed" name="biopsed">
+                                <div class="checkbox-box"><i class="fa-solid fa-syringe"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Previously Biopsied</strong>
+                                    <span>Skin tissue sample taken</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="skin_cancer_history" name="skin_cancer_history">
+                                <div class="checkbox-box"><i class="fa-solid fa-user-ninja"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Personal Skin Cancer History</strong>
+                                    <span>Prior diagnosis of skin neoplasm</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="cancer_history" name="cancer_history">
+                                <div class="checkbox-box"><i class="fa-solid fa-people-roof"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Family Cancer History</strong>
+                                    <span>First-degree relatives with cancer</span>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" id="smoke" name="smoke">
+                                <div class="checkbox-box"><i class="fa-solid fa-smoking"></i></div>
+                                <div class="checkbox-label">
+                                    <strong>Tobacco / Smoking History</strong>
+                                    <span>Active or past tobacco use</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="submit-bar">
+                        <button type="submit" class="btn-primary" id="btn-predict">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Execute DermaVision AI Prediction
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right Side: DermaVision Dashboard & Risk Analytics -->
+            <section class="dashboard-section card-glass">
+                <div class="section-title-bar">
+                    <h2><i class="fa-solid fa-chart-pie"></i> Diagnostic Output & Risk Dashboard</h2>
+                    <span class="live-badge" id="live-indicator">Awaiting Input</span>
+                </div>
+
+                <!-- Empty State Placeholder -->
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3>Ready for Clinical Analysis</h3>
+                    <p>Enter patient skin parameters or select a <strong>Quick Preset</strong> above, then click <strong>Execute DermaVision AI Prediction</strong> to view diagnostic classifications and risk scores.</p>
+                </div>
+
+                <!-- Active Dashboard Results (Hidden by default) -->
+                <div id="results-dashboard" class="results-dashboard hidden">
+                    <!-- Diagnostic Primary Card -->
+                    <div class="diagnostic-card" id="diagnostic-card">
+                        <div class="diag-header">
+                            <div class="diag-title-area">
+                                <span class="diag-label">Predicted Condition</span>
+                                <h2 id="diag-name">Actinic Keratosis</h2>
+                                <span id="diag-code" class="code-badge">ACK</span>
+                            </div>
+                            <div class="confidence-box">
+                                <span class="conf-label">Confidence</span>
+                                <div class="conf-value" id="diag-confidence">98.5%</div>
+                            </div>
+                        </div>
+                        <p id="diag-description" class="diag-desc">Pre-cancerous scaly growth caused by sun damage.</p>
+                    </div>
+
+                    <!-- Clinical Metric Score Cards -->
+                    <div class="metrics-grid">
+                        <!-- Card 1: Skin Health Score -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-title"><i class="fa-solid fa-heart-pulse"></i> Skin Health Score</span>
+                                <span class="metric-category-badge" id="health-category-badge">Good</span>
+                            </div>
+                            <div class="score-display">
+                                <span class="score-number" id="health-score-value">85.4</span>
+                                <span class="score-max">/100</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-bar health-bar" id="health-bar" style="width: 85%;"></div>
+                            </div>
+                            <p class="metric-caption">Higher scores indicate healthier skin integrity.</p>
+                        </div>
+
+                        <!-- Card 2: Pigmentation Risk Score -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-title"><i class="fa-solid fa-disease"></i> Pigmentation Risk</span>
+                                <span class="metric-category-badge" id="pigmentation-category-badge">Low</span>
+                            </div>
+                            <div class="score-display">
+                                <span class="score-number" id="pigmentation-score-value">35.0</span>
+                                <span class="score-max">/100</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-bar risk-bar" id="pigmentation-bar" style="width: 35%;"></div>
+                            </div>
+                            <p class="metric-caption">Risk assessment of melanocytic pigmentation.</p>
+                        </div>
+
+                        <!-- Card 3: Skin Severity Score -->
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-title"><i class="fa-solid fa-shield-virus"></i> Clinical Severity</span>
+                                <span class="metric-category-badge" id="severity-category-badge">Moderate</span>
+                            </div>
+                            <div class="score-display">
+                                <span class="score-number" id="severity-score-value">35.0</span>
+                                <span class="score-max">/100</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-bar severity-bar" id="severity-bar" style="width: 35%;"></div>
+                            </div>
+                            <p class="metric-caption">Synthesized score based on diagnostic & symptoms.</p>
+                        </div>
+                    </div>
+
+                    <!-- Class Probability Breakdown -->
+                    <div class="probabilities-card">
+                        <div class="card-title">
+                            <h3><i class="fa-solid fa-chart-column"></i> ANN Model 6-Class Softmax Probabilities</h3>
+                        </div>
+                        <div class="prob-bars-container" id="prob-bars">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Clinical Recommendation Card -->
+                    <div class="recommendation-card" id="recommendation-card">
+                        <div class="rec-icon"><i class="fa-solid fa-user-nurse"></i></div>
+                        <div class="rec-content">
+                            <h4>Clinical Recommendation</h4>
+                            <p id="recommendation-text">Low clinical risk detected. Continue regular skin self-examinations and routine annual skin health checkups.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>DermaVision AI — Artificial Neural Network Architecture (PyTorch) trained on PAD-UFES-20 Clinical Dataset (2,298 samples, 78 features).</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
