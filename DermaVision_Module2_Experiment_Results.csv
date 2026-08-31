@@ -1,0 +1,10 @@
+Experiment,Initialization,Optimizer,Learning Rate,Test Accuracy,Macro F1
+Xavier / Glorot,Xavier,Adam,0.001,0.8022,0.7092
+Xavier + LR 0.001,Xavier,Adam,0.001,0.7978,0.7021
+Xavier + LR 0.0001,Xavier,Adam,0.0001,0.7891,0.7066
+Xavier + RMSprop,Xavier,RMSprop,0.001,0.7783,0.6817
+He / Kaiming,He,Adam,0.001,0.7783,0.7037
+Module 1 DeepANN Baseline,Default,Adam,0.001,0.7696,0.5873
+Default Initialization,Default,Adam,0.001,0.7696,0.6071
+Xavier + SGD,Xavier,SGD,0.001,0.7565,0.5174
+Xavier + LR 0.01,Xavier,Adam,0.01,0.7522,0.5401
