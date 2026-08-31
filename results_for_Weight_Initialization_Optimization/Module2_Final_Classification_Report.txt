@@ -1,0 +1,24 @@
+DERMAVISION AI — MODULE 2
+FINAL OPTIMIZED DEEPANN
+============================================================
+
+Initialization: Xavier / Glorot
+Optimizer: Adam
+Learning Rate: 0.001
+
+Test Loss: 0.6147
+Test Accuracy: 78.26%
+
+Classification Report:
+              precision    recall  f1-score   support
+
+         ACK     0.8013    0.8562    0.8278       146
+         BCC     0.7839    0.9231    0.8478       169
+         MEL     1.0000    0.4000    0.5714        10
+         NEV     0.7368    0.8571    0.7925        49
+         SCC     0.6364    0.1795    0.2800        39
+         SEK     0.7879    0.5532    0.6500        47
+
+    accuracy                         0.7826       460
+   macro avg     0.7910    0.6282    0.6616       460
+weighted avg     0.7770    0.7826    0.7612       460
