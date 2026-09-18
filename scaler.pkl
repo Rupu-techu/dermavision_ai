@@ -1,0 +1,27 @@
+# ==============================================================
+# FEATURE SCALING
+# ==============================================================
+
+scaler = StandardScaler()
+
+numerical_features = [
+    "age",
+    "fitspatrick",
+    "diameter_1",
+    "diameter_2"
+]
+
+X_train_scaled = X_train.copy()
+X_test_scaled = X_test.copy()
+
+X_train_scaled[numerical_features] = scaler.fit_transform(
+    X_train[numerical_features]
+)
+
+X_test_scaled[numerical_features] = scaler.transform(
+    X_test[numerical_features]
+)
+
+print("Scaling completed successfully.")
+print("Scaled training data shape:", X_train_scaled.shape)
+print("Scaled testing data shape:", X_test_scaled.shape)           
