@@ -27,6 +27,8 @@ Experiments were conducted on:
 - Adam, RMSprop and SGD optimizers
 
 **Best initialization result:** Xavier — **80.22% accuracy**
+**Prediction Accuracy: 76.09%**
+
 
 The experiment results, visualizations and CSV are documented in the repository.
 
