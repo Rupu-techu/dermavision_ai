@@ -1,0 +1,16 @@
+class,images,mean,median,max
+Dyshidrotic Eczema,40,32.34,30.24,75.58
+Pigmented Benign Keratosis,40,31.77,24.48,79.23
+Melanoma,40,30.92,26.33,70.62
+Normal Skin,22,29.8,32.17,86.63
+Chickenpox,8,28.83,30.02,44.9
+Actinic Keratosis,40,25.75,22.77,65.2
+Acne,38,24.14,24.38,42.8
+Nevus,40,23.47,13.58,91.79
+Nail Fungus,40,22.58,21.9,62.95
+Ringworm,19,22.41,16.85,79.5
+Dermato Fibroma,22,21.44,21.24,73.18
+Squamous Cell Carcinoma,16,20.55,16.04,46.43
+Basal Cell Carcinoma,40,18.17,15.64,53.65
+Seborrheic Keratosis,3,14.28,16.74,20.34
+Vascular Lesion,14,0.57,0.01,2.5

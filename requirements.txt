@@ -1,0 +1,15 @@
+# Install CUDA PyTorch FIRST (NVIDIA GPU), e.g.:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+# then: pip install -r requirements.txt
+ultralytics
+kagglehub
+imagehash
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+opencv-python
+pillow
+ipykernel
+ipywidgets 
