@@ -1,0 +1,4 @@
+Model,Recurrent_Type,Task,Overall_MAE,Overall_R2,Trend_Accuracy
+SkinProgressionLSTM,LSTM,"Longitudinal Forecasting (1m, 3m, 6m)",2.3427,0.9623,99.13%
+SkinProgressionGRU,GRU,"Longitudinal Forecasting (1m, 3m, 6m)",2.7157,0.9554,99.13%
+ClinicalJournalBiLSTM,BiLSTM,Clinical Notes & Journal Feedback NLP,N/A,N/A,100.00%
