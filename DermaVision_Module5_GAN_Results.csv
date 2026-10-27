@@ -1,0 +1,2 @@
+Model Architecture,Latent Dimension (z_dim),Resolution,Optimizer,Final D Loss,Final G Loss,Synthetic Samples Generated,Conditioning
+DCGAN (Progressive ConvTranspose2d / Conv2d),100,64x64x3 RGB,"Adam (lr=0.0002, beta1=0.5)",0.5731,5.8385,120,6-Class Categorical Embedding
