@@ -1,0 +1,2 @@
+Model Architecture,Latent Dimension (z),KL Divergence Beta,Final Total Loss,Final Reconstruction MSE,Final KL Divergence,Indexed Reference Cases,Similarity Metrics
+ConvVAE (4-layer Conv2d + ConvTranspose2d),32,0.5,223.0072,189.5562,66.9021,150,Cosine Similarity & Euclidean L2 Distance

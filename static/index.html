@@ -21,8 +21,8 @@
                     <i class="fa-solid fa-microscope"></i>
                 </div>
                 <div class="brand-text">
-                    <h1>DermaVision AI <span class="badge">Module 1</span></h1>
-                    <p class="subtitle">ANN/MLP Skin Lesion Diagnostic & Clinical Health Analytics</p>
+                    <h1>DermaVision AI <span class="badge">Unified System (Modules 1–5)</span></h1>
+                    <p class="subtitle">Full Multimodal Architecture: ANN • CNN • YOLO • U-Net • LSTM • GAN • VAE • Generative AI</p>
                 </div>
             </div>
             <div class="header-status">
@@ -376,9 +376,125 @@
                     <div class="recommendation-card" id="recommendation-card">
                         <div class="rec-icon"><i class="fa-solid fa-user-nurse"></i></div>
                         <div class="rec-content">
-                            <h4>Clinical Recommendation</h4>
+                            <h4>Clinical Assessment & Plain Language Translation</h4>
                             <p id="recommendation-text">Low clinical risk detected. Continue regular skin self-examinations and routine annual skin health checkups.</p>
                         </div>
+                    </div>
+
+                    <!-- Module 4: Longitudinal Progression & Forecast -->
+                    <div class="module-card card-trajectory" id="trajectory-section">
+                        <div class="card-title-bar">
+                            <h3><i class="fa-solid fa-chart-line"></i> Module 4: Longitudinal Trajectory & Forecast (LSTM)</h3>
+                            <span class="trajectory-badge badge-stable" id="trajectory-badge">Stable (Maintenance)</span>
+                        </div>
+                        <p class="section-desc" id="trajectory-narrative">Projected multi-horizon evolution over 1, 3, and 6 months based on temporal recurrent sequence modelling.</p>
+                        <div class="horizons-grid">
+                            <div class="horizon-card">
+                                <span class="h-title">+1 Month</span>
+                                <div class="h-metric">Health: <strong id="h1-health">--</strong></div>
+                                <div class="h-sub">Pigment Area: <span id="h1-pig">--%</span></div>
+                            </div>
+                            <div class="horizon-card highlight">
+                                <span class="h-title">+3 Months</span>
+                                <div class="h-metric">Health: <strong id="h3-health">--</strong></div>
+                                <div class="h-sub">Pigment Area: <span id="h3-pig">--%</span></div>
+                            </div>
+                            <div class="horizon-card">
+                                <span class="h-title">+6 Months</span>
+                                <div class="h-metric">Health: <strong id="h6-health">--</strong></div>
+                                <div class="h-sub">Pigment Area: <span id="h6-pig">--%</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Module 5B: VAE Clinical Case Similarity Retrieval -->
+                    <div class="module-card card-similarity" id="similarity-section">
+                        <div class="card-title-bar">
+                            <h3><i class="fa-solid fa-dna"></i> Module 5: Clinical Case Similarity Retrieval (VAE Latent Space)</h3>
+                            <span class="anomaly-badge" id="anomaly-badge">Anomaly Score: 1.08</span>
+                        </div>
+                        <p class="section-desc">Nearest-neighbor historical clinical cases retrieved using 32-dimensional latent representations:</p>
+                        <div class="similar-cases-grid" id="similar-cases-container">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Module 5C: Tailored AM/PM Skincare Protocol & Actives -->
+                    <div class="module-card card-regimen" id="regimen-section">
+                        <div class="card-title-bar">
+                            <h3><i class="fa-solid fa-pump-medical"></i> Module 5: Personalized Skincare Protocol & Active Ingredients</h3>
+                            <span class="urgency-pill" id="urgency-pill">Standard Advisory</span>
+                        </div>
+                        
+                        <!-- Ingredients Chips -->
+                        <div class="ingredient-tags-container">
+                            <div class="tag-group">
+                                <strong><i class="fa-solid fa-circle-check text-success"></i> Recommended Actives:</strong>
+                                <div id="target-actives-chips" class="chips-row"></div>
+                            </div>
+                            <div class="tag-group">
+                                <strong><i class="fa-solid fa-circle-xmark text-danger"></i> Strictly Contraindicated:</strong>
+                                <div id="contraindicated-chips" class="chips-row"></div>
+                            </div>
+                        </div>
+
+                        <!-- Regimen Columns -->
+                        <div class="regimen-columns">
+                            <!-- AM Column -->
+                            <div class="regimen-box">
+                                <h4><i class="fa-solid fa-sun text-warning"></i> Morning Routine (AM) — Defense & Sunscreen</h4>
+                                <div class="routine-steps" id="am-steps-container"></div>
+                            </div>
+
+                            <!-- PM Column -->
+                            <div class="regimen-box">
+                                <h4><i class="fa-solid fa-moon text-info"></i> Evening Routine (PM) — Cellular Repair</h4>
+                                <div class="routine-steps" id="pm-steps-container"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Module 5C: Interactive AI Skincare Chatbot -->
+                    <div class="module-card card-chatbot" id="chatbot-section">
+                        <div class="card-title-bar">
+                            <h3><i class="fa-solid fa-robot"></i> DermaVision AI Skincare Consultation Assistant</h3>
+                            <span class="chat-status-dot">Live & Context-Grounded</span>
+                        </div>
+                        <p class="section-desc">Ask real-time questions about your skin condition, active ingredients, sunscreen, or forecast:</p>
+
+                        <!-- Quick Questions -->
+                        <div class="quick-questions">
+                            <button type="button" class="btn-chip" onclick="askQuickPrompt('Which sunscreen should I use and how often?')">
+                                <i class="fa-solid fa-shield-halved"></i> Sunscreen advice?
+                            </button>
+                            <button type="button" class="btn-chip" onclick="askQuickPrompt('Which active ingredients are safe for my skin?')">
+                                <i class="fa-solid fa-vial"></i> Safe active ingredients?
+                            </button>
+                            <button type="button" class="btn-chip" onclick="askQuickPrompt('What does my 3-month forecast mean for me?')">
+                                <i class="fa-solid fa-chart-line"></i> 3-Month prognosis?
+                            </button>
+                            <button type="button" class="btn-chip" onclick="askQuickPrompt('Do I need to see a dermatologist urgently?')">
+                                <i class="fa-solid fa-user-doctor"></i> Doctor visit triage?
+                            </button>
+                        </div>
+
+                        <!-- Chat Message Window -->
+                        <div class="chat-window" id="chat-window">
+                            <div class="chat-msg bot-msg">
+                                <div class="avatar"><i class="fa-solid fa-microscope"></i></div>
+                                <div class="msg-text">
+                                    Hello! I am your <strong>DermaVision AI Skincare Assistant</strong>. After your analysis, I can explain active ingredients, sunscreen usage, irritation management, or your projected 3-month forecast. How can I help you today?
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input Bar -->
+                        <form id="chat-form" onsubmit="handleChatSubmit(event)" class="chat-input-bar">
+                            <input type="text" id="chat-input" placeholder="Type your skincare question here..." autocomplete="off">
+                            <button type="submit" id="btn-send-chat" class="btn-send">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </section>
